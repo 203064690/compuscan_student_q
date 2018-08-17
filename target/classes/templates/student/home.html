@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+</head>
+<body>
+
+<div class="header">
+    <h2>Home</h2>
+</div>
+<form name ="homeForm" method ="post" action="home" id = "homeForm">
+    <div>
+        <br>
+        <div class="input-group">
+            <a href="view_student" class="btn">View Student List</a>
+        </div>
+        <br>
+        <div class="input-group">
+            <a href="view_marks" class="btn">View Marks</a>
+        </div>
+        <br>
+    </div>
+    <div>
+        <br>
+        <div class="input-group">
+            <a href="add_student" class="btn">Add Student</a>
+        </div>
+        <br>
+        <div class="input-group">
+            <a href="add_mark" class="btn">Add Marks</a>
+        </div>
+
+        <br>
+    </div>
+    <a th:href="@{/login}">Sign out</a>
+    </div>
+</form>
+</body>
+</html>
