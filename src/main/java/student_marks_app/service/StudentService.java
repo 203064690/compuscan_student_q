@@ -12,5 +12,7 @@ public interface StudentService {
 
     public String saveStudent(Student student);
 
+    public String updateStudent(Student student);
+
     public String deleteStudent(String stud_no);
 }

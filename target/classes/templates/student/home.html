@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script src="js/handleForm.js" th:inline="javascript"></script>
 </head>
-<body>
+<body onload="getVariable()">
 
 <div class="header">
     <h2>Home</h2>
 </div>
-<form name ="homeForm" method ="post" action="home" id = "homeForm">
+<form name ="homeForm" method ="post" action="home" id = "homeForm" onclick="getVariable()">
+    <div class="success">
+        <h2><span th:utext="*{msg}"></span></h2>
+    </div>
     <div>
         <br>
         <div class="input-group">

@@ -12,8 +12,8 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     private String stud_no;
-    private String stud_firstName;
-    private String stud_lastName;
+    private String stud_first_name;
+    private String stud_last_name;
     private double stud_mark;
 
     public Student(){}
@@ -22,43 +22,43 @@ public class Student implements Serializable {
         return ID;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
-
     public String getStud_no() {
         return stud_no;
+    }
+    public String getStud_first_name() {
+        return stud_first_name;
+    }
+    public String getStud_last_name() {
+        return stud_last_name;
+    }
+    public double getStud_mark() {
+        return stud_mark;
+    }
+
+
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 
     public void setStud_no(String stud_no) {
         this.stud_no = stud_no;
     }
-
-    public String getStud_firstName() {
-        return stud_firstName;
+    public void setStud_first_name(String stud_first_name) {
+        this.stud_first_name = stud_first_name;
     }
-
-    public void setStud_firstName(String stud_firstName) {
-        this.stud_firstName = stud_firstName;
+    public void setStud_last_name(String stud_last_name) {
+        this.stud_last_name = stud_last_name;
     }
-
-    public String getStud_lastName() {
-        return stud_lastName;
-    }
-
-    public void setStud_lastName(String stud_lastName) {
-        this.stud_lastName = stud_lastName;
-    }
-
-    public double getStud_mark() {
-        return stud_mark;
-    }
-
     public void setStud_mark(double stud_mark) {
         this.stud_mark = stud_mark;
     }
 
     public Student(Builder builder){
+        ID = builder.ID;
+        stud_no = builder.stud_no;
+        stud_first_name = builder.stud_first_name;
+        stud_last_name = builder.stud_last_name;
+        stud_mark = builder.stud_mark;
 
     }
 
@@ -66,8 +66,8 @@ public class Student implements Serializable {
 
         private Long ID;
         private String stud_no;
-        private String stud_firstName;
-        private String stud_lastName;
+        private String stud_first_name;
+        private String stud_last_name;
         private double stud_mark;
 
         public Builder( String value )
@@ -81,15 +81,15 @@ public class Student implements Serializable {
             return this;
         }
 
-        public Builder stud_firstName( String value )
+        public Builder stud_first_name( String value )
         {
-            this.stud_firstName = value;
+            this.stud_first_name = value;
             return this;
         }
 
-        public Builder stud_lastName( String value )
+        public Builder stud_last_name( String value )
         {
-            this.stud_lastName = value;
+            this.stud_last_name = value;
             return this;
         }
 
@@ -110,8 +110,8 @@ public class Student implements Serializable {
         return "Student{" +
                 "ID=" + ID +
                 ", stud_no='" + stud_no + '\'' +
-                ", stud_firstName='" + stud_firstName + '\'' +
-                ", stud_lastName='" + stud_lastName + '\'' +
+                ", stud_first_name='" + stud_first_name + '\'' +
+                ", stud_last_name='" + stud_last_name + '\'' +
                 ", stud_mark=" + stud_mark +
                 '}';
     }

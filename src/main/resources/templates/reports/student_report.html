@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:form="" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+    <title>Student Report</title>
+    <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
+    <script src="js/handleForm.js" th:inline="javascript"></script>
+    <title>Title</title>
+
+</head>
+<body onload="getVariable()">
+<div class="header">
+    <h2><p id="demo"></p>  Report</h2>
+</div>
+        <table id="myTableId" dt:table="true" class="table">
+            <thead>
+            <tr class="header">
+                <th>Student No</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="report: ${reports}" align="center">
+                    <td th:text="${report.getStud_no()}" />
+                    <td th:text="${report.getStud_first_name()}" />
+                    <td th:text="${report.getStud_last_name()}" />
+                </tr>
+            </tbody>
+        </table>
+<br/>
+    <input type="button" class="btn" value="Cancel" onclick="history.back()">
+</body>
+</html>

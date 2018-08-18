@@ -8,6 +8,8 @@ import student_marks_app.domain.Student;
 import student_marks_app.service.StudentService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -15,14 +17,24 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping("/student/view_student")
-    public @ResponseBody
-    Iterable<Student> getAllStudent()
-    {
-        return studentService.getAllStudent();
+    //View Reports
+    @RequestMapping(value={"/view_student"}, method = RequestMethod.GET)
+    public ModelAndView getAllCustomer(){
+        List<Student> allStudents = new ArrayList<>();
+        Iterable<Student> allCustomers2 = studentService.getAllStudent();
+        for(Student student : allCustomers2){
+            allStudents.add(student);
+        }
+
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("reports/student_report");
+        model.addObject("reports", allStudents);
+        model.addObject("msg", "Student");
+        return model;
     }
 
-    //To display Student screen
+    //To display Main screen
     @RequestMapping(value= {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView student(){
 
@@ -31,7 +43,7 @@ public class StudentController {
         return model;
     }
 
-    //To display Student screen
+    //To display Student add screen
     @RequestMapping(value= {"/add_student"}, method = RequestMethod.GET)
     public ModelAndView ViewStudent(){
 
@@ -39,19 +51,22 @@ public class StudentController {
         model.setViewName("student/add_student");
         return model;
     }
-
+    //To handel add Student screen
     @RequestMapping(value= {"/add_student"}, method=RequestMethod.POST)
-    public String addStudent(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult) {
+    public ModelAndView addStudent(@ModelAttribute("Student") @Valid Student student, BindingResult bindingResult) {
         String result = "";
+        System.out.println(student.toString());
         Student studentExists = studentService.getStudent(student.getStud_no());
         //System.out.println(userExists.toString());
         if(studentExists != null) {
             bindingResult.rejectValue("msg", "Student already exist");
         }
         if(bindingResult.hasErrors()) {
+            result = studentService.saveStudent(student);
             ModelAndView model = new ModelAndView("student/add_student");
             model.addObject("msg", "Student already exist");
-            return result;
+            System.out.println(result);
+            return model;
         }
 
         else {
@@ -59,11 +74,49 @@ public class StudentController {
             ModelAndView model = new ModelAndView("student/home");
             model.addObject("student", studentExists);
             model.addObject("msg", "Student saved successfully!");
-            return result;
+            System.out.println(result);
+            return model;
         }
 
     }
 
+    @RequestMapping(value= {"/add_mark"}, method = RequestMethod.GET)
+    public ModelAndView addMark(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("student/add_mark");
+        return model;
+    }
+
+    //To add Mark to specific student
+    @RequestMapping(value= {"/add_mark"}, method=RequestMethod.POST)
+    public ModelAndView updateStudentMark(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult) {
+        String result = "";
+        System.out.println(student.toString());
+        Student studentExists = studentService.getStudent(student.getStud_no());
+        System.out.println(studentExists.toString());
+        if(studentExists == null) {
+            bindingResult.rejectValue("msg", "Student does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("student/add_mark");
+            model.addObject("msg", "Student does not exist");
+            return model;
+        }
+
+        else {
+
+            studentExists.setStud_mark(student.getStud_mark());
+            result = studentService.updateStudent(studentExists);
+            ModelAndView model = new ModelAndView("student/home");
+            model.addObject("msg", "Student mark was saved!");
+            System.out.println(result);
+            return model;
+        }
+
+    }
+
+    //To delete student
     @RequestMapping(value= {"/delete_student"}, method=RequestMethod.POST)
     public String deleteStudent(String stud_no) {
         String result;
@@ -72,36 +125,5 @@ public class StudentController {
         //model.setViewName("errors/access_denied");
         return result;
     }
-/*
-    @GetMapping(path = "/user/get/{emailAddress}")
-    public String getUserPost (@PathVariable String emailAddress){
-        User getUser = null;
-        String created;
-        getUser =userService.getUser(emailAddress);
-        created =getUser.toString();
-        return created;
-    }
-    */
-/*
-    @RequestMapping(value = "/login", method = RequestMethod.POST) // Map ONLY Post Requests
-    public String addUser (@RequestBody User userName) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-        String created, created2;
-
-       // created = userService.newUser(name, email);
-        userService.saveUser(userName);
-        return created2 = userName.getEmailAddress();
-    }
-*/
-/*
-    @RequestMapping(path = "/user/add")
-    public @ResponseBody String addNewUser (@RequestParam String email
-            , @RequestParam String password, @RequestParam String recoveryQuestion, @RequestParam String recoveryAnswer){
-        String created;
-        created = userService.newUser(email, password, recoveryQuestion, recoveryAnswer);
-        return created;
-    }
-*/
 
 }

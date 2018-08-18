@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
         if (count == 0)
         {
             //userName.setPassword(bCryptPasswordEncoder.encode(userName.getPassword()));
-            Student student = StudentFactory.createStudent(studentNew.getStud_no(), studentNew.getStud_firstName(), studentNew.getStud_lastName(), studentNew.getStud_mark());
+            Student student = StudentFactory.createStudent(studentNew.getStud_no(), studentNew.getStud_first_name(), studentNew.getStud_last_name(), studentNew.getStud_mark());
             repositoryStudent.save(student);
             blnCreateStudent = true;
         }
@@ -82,6 +82,15 @@ public class StudentServiceImpl implements StudentService {
         else
             return "User not saved";
     }
+
+    @Override
+    public String updateStudent(Student studentNew) {
+
+        repositoryStudent.save(studentNew);
+        return "User updated";
+
+    }
+
 
     @Override
     public String deleteStudent(String stud_no) {
