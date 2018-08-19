@@ -11,11 +11,11 @@
     <h2>Student details</h2>
 </div>
 
-<form name = "studForm" method="post" action="/add_student" onclick="getVariable()">
+<form name = "add_student" method="post" action="/add_student">
     <div class="input-group">
         <label>Student Number</label>
         <input type="text" name="stud_no" id="stud_no" required>
-        <span th:utext="${msg}"></span>
+        <span th:utext="${stud_no}" style="color: #a94442"></span>
     </div>
     <div class="input-group">
         <label>First Name</label>
@@ -27,7 +27,7 @@
     </div>
     <div class="input-group">
         <br>
-        <button type="submit" class="btn" name="user">Register</button>     <input type="button" class="btn" value="Cancel" onclick="history.back()">
+        <button type="submit" class="btn" name="user">Register</button>     <a href="home" class="btn">Back</a>
     </div>
 </form>
 </body>

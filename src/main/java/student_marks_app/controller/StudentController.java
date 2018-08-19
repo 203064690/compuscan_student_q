@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 import student_marks_app.domain.Student;
 import student_marks_app.service.StudentService;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,24 @@ public class StudentController {
         ModelAndView model = new ModelAndView();
         model.setViewName("reports/student_report");
         model.addObject("reports", allStudents);
-        model.addObject("msg", "Student");
+        model.addObject("msg", "Student List");
+        return model;
+    }
+
+    //View Reports
+    @RequestMapping(value={"/view_marks"}, method = RequestMethod.GET)
+    public ModelAndView getAllMarks(){
+        List<Student> allStudents = new ArrayList<>();
+        Iterable<Student> allCustomers2 = studentService.getAllStudent();
+        for(Student student : allCustomers2){
+            allStudents.add(student);
+        }
+
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("reports/marks_report");
+        model.addObject("reports", allStudents);
+        model.addObject("msg", "Student Marks");
         return model;
     }
 
@@ -53,19 +69,17 @@ public class StudentController {
     }
     //To handel add Student screen
     @RequestMapping(value= {"/add_student"}, method=RequestMethod.POST)
-    public ModelAndView addStudent(@ModelAttribute("Student") @Valid Student student, BindingResult bindingResult) {
+    public ModelAndView addStudent(@ModelAttribute("Student") Student student, BindingResult bindingResult) {
         String result = "";
         System.out.println(student.toString());
         Student studentExists = studentService.getStudent(student.getStud_no());
         //System.out.println(userExists.toString());
         if(studentExists != null) {
-            bindingResult.rejectValue("msg", "Student already exist");
+            bindingResult.rejectValue("stud_no", "Student already exist");
         }
         if(bindingResult.hasErrors()) {
-            result = studentService.saveStudent(student);
             ModelAndView model = new ModelAndView("student/add_student");
-            model.addObject("msg", "Student already exist");
-            System.out.println(result);
+            model.addObject("stud_no", "Student already exist");
             return model;
         }
 
@@ -90,17 +104,16 @@ public class StudentController {
 
     //To add Mark to specific student
     @RequestMapping(value= {"/add_mark"}, method=RequestMethod.POST)
-    public ModelAndView updateStudentMark(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult) {
+    public ModelAndView updateStudentMark(@ModelAttribute("student") Student student, BindingResult bindingResult) {
         String result = "";
         System.out.println(student.toString());
         Student studentExists = studentService.getStudent(student.getStud_no());
-        System.out.println(studentExists.toString());
         if(studentExists == null) {
-            bindingResult.rejectValue("msg", "Student does not exist");
+            bindingResult.rejectValue("stud_no", "Student does not exist");
         }
         if(bindingResult.hasErrors()) {
             ModelAndView model = new ModelAndView("student/add_mark");
-            model.addObject("msg", "Student does not exist");
+            model.addObject("stud_no", "Student does not exist");
             return model;
         }
 
@@ -116,14 +129,36 @@ public class StudentController {
 
     }
 
+    @RequestMapping(value= {"/delete_student"}, method = RequestMethod.GET)
+    public ModelAndView viewDelete(){
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("student/delete_student");
+        return model;
+    }
+
     //To delete student
     @RequestMapping(value= {"/delete_student"}, method=RequestMethod.POST)
-    public String deleteStudent(String stud_no) {
-        String result;
-        result = studentService.deleteStudent(stud_no);
-        //ModelAndView model = new ModelAndView();
-        //model.setViewName("errors/access_denied");
-        return result;
+    public ModelAndView deleteStudent(@ModelAttribute("student") Student student, BindingResult bindingResult) {
+
+        Student studentExists = studentService.getStudent(student.getStud_no());
+        if(studentExists == null) {
+            bindingResult.rejectValue("stud_no", "Student does not exist");
+        }
+        if(bindingResult.hasErrors()) {
+            ModelAndView model = new ModelAndView("student/delete_student");
+            model.addObject("stud_no", "Student does not exist");
+            return model;
+        }
+
+        else {
+
+            studentService.deleteStudent(student.getStud_no());
+            ModelAndView model = new ModelAndView("student/home");
+            model.addObject("msg", "Student was deleted!");
+            return model;
+        }
+
     }
 
 }

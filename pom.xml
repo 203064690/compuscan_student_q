@@ -65,6 +65,11 @@
       <artifactId>thymeleaf-spring5</artifactId>
       <version>3.0.9.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.4-1206-jdbc42</version>
+    </dependency>
   </dependencies>
 
   <build>

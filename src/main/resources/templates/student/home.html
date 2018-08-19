@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables" xmlns:th="http://www.springframework.org/schema/jdbc">
+      xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
-    <script src="js/handleForm.js" th:inline="javascript"></script>
+    <script src="/js/handleForm.js" th:inline="javascript"></script>
 </head>
 <body onload="getVariable()">
 
@@ -29,16 +29,14 @@
     <div>
         <br>
         <div class="input-group">
-            <a href="add_student" class="btn">Add Student</a>
+            <a href="add_student" class="btn">Add Student</a>       <a href="delete_student" class="btn">Delete Student</a>
         </div>
         <br>
         <div class="input-group">
             <a href="add_mark" class="btn">Add Marks</a>
         </div>
-
         <br>
     </div>
-    <a th:href="@{/login}">Sign out</a>
     </div>
 </form>
 </body>

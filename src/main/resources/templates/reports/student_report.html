@@ -4,13 +4,13 @@
 <head>
     <title>Student Report</title>
     <link rel="stylesheet" type="text/css" href="/StyleSheet1.css">
-    <script src="js/handleForm.js" th:inline="javascript"></script>
-    <title>Title</title>
+    <script src="/js/handleForm.js" th:inline="javascript"></script>
+    <title>Student Report</title>
 
 </head>
-<body onload="getVariable()">
+<body>
 <div class="header">
-    <h2><p id="demo"></p>  Report</h2>
+    <h2><span th:utext="${msg}"></span>  Report</h2>
 </div>
         <table id="myTableId" dt:table="true" class="table">
             <thead>
@@ -29,6 +29,6 @@
             </tbody>
         </table>
 <br/>
-    <input type="button" class="btn" value="Cancel" onclick="history.back()">
+        <a href="home" class="btn">Back</a>
 </body>
 </html>

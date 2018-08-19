@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudent(String stud_no) {
+    public Student getStudent(String stud_no){
         String strStudent = "";
         int countStud = 0;
         Student gotStudent = null;
