@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Apache Local Web Server" deleteMissingItems="true">
+  <component name="PublishConfigData">
     <serverData>
       <paths name="Apache Local Web Server">
         <serverdata>
           <mappings>
-            <mapping deploy="compuscan_student_q" local="$PROJECT_DIR$/src/main/resources/php" web="/compuscan_student_q" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/src/main/java" />
-            <excludedPath local="true" path="$PROJECT_DIR$/src/test" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
