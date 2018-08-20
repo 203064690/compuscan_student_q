@@ -1,10 +1,13 @@
 package student_marks_app.domain;
 
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name="student")
+@Audited
 public class Student implements Serializable {
 
     @Id
